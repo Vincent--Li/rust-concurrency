@@ -9,7 +9,7 @@ const M: usize = 10;
 
 fn main() -> Result<()> {
     let m = Metrics::new();
-    println!("{:?}", m.snapshot());
+    println!("{}", m);
 
     for idx in 0..N {
         task_worker(idx, m.clone())?;
@@ -20,7 +20,7 @@ fn main() -> Result<()> {
     }
 
     loop {
-        thread::sleep(Duration::from_secs(5));
+        thread::sleep(Duration::from_secs(2));
         println!("{}\n", m);
     }
 }
