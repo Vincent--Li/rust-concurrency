@@ -21,7 +21,7 @@ fn main() -> Result<()> {
 
     loop {
         thread::sleep(Duration::from_secs(5));
-        println!("{:?}\n", m.snapshot());
+        println!("{}\n", m);
     }
 }
 
@@ -31,7 +31,7 @@ fn task_worker(idx: usize, m: Metrics) -> Result<()> {
             let mut rng = rand::thread_rng();
 
             thread::sleep(Duration::from_millis(rng.gen_range(100..5000)));
-            m.incr(format!("call.thread.worker.{}", idx))?;
+            m.incr(format!("call.thread.worker.{0:>03}", idx))?;
         }
         #[allow(unreachable_code)]
         Ok(())
@@ -46,7 +46,7 @@ fn request_worker(m: Metrics) -> Result<()> {
 
             thread::sleep(Duration::from_millis(rng.gen_range(100..5000)));
             let page = rng.gen_range(0..255);
-            m.incr(format!("req.page.{}", page))?;
+            m.incr(format!("req.page.{0:>03}", page))?;
         }
         #[allow(unreachable_code)]
         Ok(())
