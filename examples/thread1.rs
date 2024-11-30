@@ -24,6 +24,7 @@ fn main() -> Result<()> {
 
     // 创建consumer
     let consumer = thread::spawn(|| {
+        // 如果tx没有释放, 这个for循环不会退出而是一直等待
         for msg in rx {
             println!("consume {:?}", msg);
         }
